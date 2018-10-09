@@ -1,0 +1,10 @@
+<a href="/">Back to Home</a>
+
+<h1>{{snippet.title}}</h1>
+<p>{{snippet.description}}</p>
+
+<p><a href="/snippet/{{snippet._id}}/edit">Edit</a></p>
+
+<p><form method="POST" action="/snippet/{{snippet._id}}?_method=DELETE">
+    <button type="submit">Delete</button>
+</form></p>
