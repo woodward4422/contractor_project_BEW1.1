@@ -6,17 +6,16 @@ mongoose.connect('mongodb://localhost/code-review', { useMongoClient: true });
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override')
 const Schema = mongoose.Schema
-
+//TODO:
 const Comment = mongoose.model('Comment', {
     title: String,
     content: String,
-    reviewId: { type: Schema.Types.ObjectId, ref: 'Snippet' }
+    snippetId: { type: Schema.Types.ObjectId, ref: 'Snippet' }
   });
 
 const Snippet = mongoose.model('Snippet', {
     title: String,
     description: String, 
-    
   });  
 
 
@@ -27,6 +26,7 @@ const Snippet = mongoose.model('Snippet', {
   app.use(bodyParser.urlencoded({ extended: true }));
 
 
+// TODO: Need to Add Comments and then do styling. 
 
 
   app.get('/', (req, res) => {
