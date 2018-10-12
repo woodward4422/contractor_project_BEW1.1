@@ -2,11 +2,14 @@ const express = require('express');
 const app = express();
 var exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/code-review', { useMongoClient: true });
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override')
 const Schema = mongoose.Schema
 
+if (!process.env.PORT){
+  reguire('dotenv').config();
+}
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/rotten-potatoes', { useNewUrlParser: true });
 const Comment = mongoose.model('Comment', {
     title: String,
     content: String,
