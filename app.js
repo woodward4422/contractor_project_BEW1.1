@@ -7,7 +7,7 @@ const methodOverride = require('method-override')
 const Schema = mongoose.Schema
 
 if (!process.env.PORT){
-  reguire('dotenv').config();
+  require('dotenv').config();
 }
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/rotten-potatoes', { useNewUrlParser: true });
 const Comment = mongoose.model('Comment', {
