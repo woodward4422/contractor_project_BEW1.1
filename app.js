@@ -117,7 +117,4 @@ const Snippet = mongoose.model('Snippet', {
 
 
 var port = process.env.PORT || '3000';
-app.listen(port, () => {
-    console.log('App listening on port 3000!')
-    console.log('App Deployed to Heroku')
-  });
+app.listen(port)
