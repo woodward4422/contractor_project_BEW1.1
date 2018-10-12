@@ -8,3 +8,13 @@
 <p><form method="POST" action="/snippet/{{snippet._id}}?_method=DELETE">
     <button type="submit">Delete</button>
 </form></p>
+
+
+  {{> comment-form}}
+
+     <hr>
+
+     <!-- Show Comments -->
+    {{#each comments}}
+      {{> comment}}
+    {{/each}}

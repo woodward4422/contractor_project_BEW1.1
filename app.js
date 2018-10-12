@@ -6,7 +6,7 @@ mongoose.connect('mongodb://localhost/code-review', { useMongoClient: true });
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override')
 const Schema = mongoose.Schema
-//TODO:
+
 const Comment = mongoose.model('Comment', {
     title: String,
     content: String,
@@ -53,8 +53,10 @@ const Snippet = mongoose.model('Snippet', {
   });
 
    app.get('/snippet/:id', (req, res) => {
-    Snippet.findById(req.params.id).then((snippet) => {
-         res.render('snippets-show', { snippet: snippet })
+    Snippet.findById(req.params.id).then((snippet) => { 
+        Comment.find({ snippetId: req.params.id }).then(comments => {
+        res.render('snippets-show', { snippet: snippet, comments: comments })
+      })
     }).catch((err) => {
         console.log(err.message);
     })
@@ -82,6 +84,29 @@ const Snippet = mongoose.model('Snippet', {
     console.log("DELETE Snippet")
     Snippet.findByIdAndRemove(req.params.id).then((snippet) => {
       res.redirect('/');
+    }).catch((err) => {
+      console.log(err.message);
+    })
+  })
+
+  app.post('/snippet/comments', function(req,res) {
+    console.log("BEER!!!s")
+    console.log(req.body)
+    Comment.create(req.body).then(comment => {
+      console.log("In here")
+      console.log(comment.snippetId)
+      res.redirect(`/snippet/${comment.snippetId}`)
+    }).catch((err) => {
+      console.log("Hey")
+      console.log(err.message)
+    })
+  })
+
+  app.delete('/snippet/comments/:id', function (req, res) {
+    console.log("DELETE comment")
+    Comment.findByIdAndRemove(req.params.id).then((comment) => {
+      console.log("Deleted")
+      res.redirect(`/snippet/${comment.snippetId}`);
     }).catch((err) => {
       console.log(err.message);
     })
